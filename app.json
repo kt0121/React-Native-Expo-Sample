@@ -1,0 +1,12 @@
+{
+  "name": "hoge",
+  "displayName": "hoge",
+  "expo": {
+    "name": "hoge",
+    "slug": "hoge",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
