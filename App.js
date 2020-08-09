@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import styled from "styled-components/native";
+import { css } from "styled-components";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default class App extends React.Component {
+  render() {
+    return (
+      <CenterView>
+        <StyleBtn>
+          <Text>赤いボタン</Text>
+        </StyleBtn>
+      </CenterView>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// styled component
+const center = css`
+  justify-content: center;
+  align-items: center;
+`;
+const CenterView = styled.View`
+  flex: 1;
+  ${center};
+  background-color: #f5fcff;
+`;
+const StyleBtn = styled.TouchableOpacity`
+  flex-direction: row;
+  ${center};
+  margin-top: 15;
+  border-radius: 20;
+  background-color: #e8483b;
+  width: 150;
+  height: 50;
+`;
+const Text = styled.Text`
+  color: white;
+  font-weight: bold;
+`;
