@@ -2,17 +2,20 @@ import React from "react";
 import styled from "styled-components/native";
 import { css } from "styled-components";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <CenterView>
-        <StyleBtn>
-          <Text>赤いボタン</Text>
-        </StyleBtn>
-      </CenterView>
-    );
-  }
-}
+const App = () => {
+  const title = "fooo";
+  const onClickButton = () => {
+    console.log("foooo");
+  };
+  return (
+    <CenterView>
+      <Text>ハローワールド</Text>
+      <StyleBtn onClick={onClickButton}>
+        <ButtonText>{title}</ButtonText>
+      </StyleBtn>
+    </CenterView>
+  );
+};
 
 // styled component
 const center = css`
@@ -34,6 +37,13 @@ const StyleBtn = styled.TouchableOpacity`
   height: 50;
 `;
 const Text = styled.Text`
+  color: black;
+  font-weight: bold;
+`;
+
+const ButtonText = styled.Text`
   color: white;
   font-weight: bold;
 `;
+
+export default App;
