@@ -6,6 +6,7 @@
 
 ```sh
 $ yarn global add create-react-native-app
+$ yarn global add expo-cli
 $ yarn
 ```
 
