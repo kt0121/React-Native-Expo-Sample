@@ -2,30 +2,60 @@ import React from "react";
 import { Button } from "react-native";
 import styled from "styled-components/native";
 import { css } from "styled-components";
+import {Image} from 'react-native' ;
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-const RoundButton = (props) => {
+const User = (props) => {
   return (
-    <RoundButtonWrapper>
-      <Button title={props.title} color="white" onPress={props.onPress} />
-    </RoundButtonWrapper>
-  );
+    <UserContainer>
+      <UserImage resizeMode='contain' source={require('../img/Profile.jpg')} />
+      <UserText>{props.username}</UserText>
+    </UserContainer>
+  )
 };
+
+const Post = (props) => {
+  return (
+    <PostContainer>
+      <PostImage style={{width: '100%'}} resizeMode='contain' source={require('../img/card.jpg')} />
+      <PostIcons>
+        <Icons>
+          <FontAwesome name="heart-o" size={25}/>
+        </Icons>
+        <Icons>
+          <FontAwesome name="comment-o" size={25}/>
+        </Icons>
+        <Icons>
+         <FontAwesome name="paper-plane-o" size={25}/>
+        </Icons>
+        <RightView>
+          <FontAwesome name="bookmark-o" size={25}/>
+        </RightView>
+      </PostIcons>
+      <PostText>
+        <PostUser>{props.username}</PostUser>
+        <PostComment>{props.comment}</PostComment>
+      </PostText>
+    </PostContainer>
+  )
+}
 
 const Card = (props) => {
   return (
     <CardContainer>
-      <Text style={{ padding: 14 }}>タイトル：{props.title}</Text>
-      <RoundButton title="Click me !!" onPress={() => console.log("Simple Button pressed")} />
+      <User username={props.username}/>
+      <Post username={props.username} comment={props.comment}/>
     </CardContainer>
   );
 };
 
 const App = () => {
-  const titles = ["React", "Native", "For", "The", "First", "Time"];
+  const usernames = ["Ahn", "Heeyon", "Hani"];
   return (
     <CenterView>
-      {titles.map((title) => (
-        <Card title={title} />
+      {usernames.map((username) => (
+        <Card username={username} comment="Hello"/>
       ))}
     </CenterView>
   );
@@ -33,28 +63,72 @@ const App = () => {
 
 // styled component
 const center = css`
-  justify-content: center;
-  align-items: center;
 `;
 const CenterView = styled.ScrollView`
   background-color: #282c34;
 `;
-const Text = styled.Text`
-  color: white;
-  font-weight: bold;
-`;
 const CardContainer = styled.View`
-  margin: 24px;
-  width: 240px;
-  height: 150px;
-  background-color: #0e121a;
+  width: auto;
+  height: auto;
+  background-color: #FFFFFF;
+  padding-bottom: 10px;
+  ${center};
+`;
+const PostContainer = styled.View`
+  width: auto;
+  height: auto;
   ${center};
 `;
 
-const RoundButtonWrapper = styled.View`
-  background-color: dodgerblue;
-  padding: 3px 12px 3px;
-  border-radius: 10px;
+
+const UserContainer = styled.View`
+width: auto;
+height: 30px;
+display:flex;
+flex-direction: row;
 `;
 
+const UserImage = styled.Image`
+border-radius: 1000px;
+margin-left:10px;
+width:  30px;
+height: 30px;
+`;
+const UserText = styled.Text`
+  padding: 5px 0px 0px 5px;
+  color: black;
+`;
+const PostUser = styled.Text`
+  padding: 0px 0px 0px 5px;
+  color: black;
+`;
+const PostComment = styled.Text`
+  color: black;
+  font-weight: bold;
+`;
+
+const PostImage = styled.Image`
+`;
+
+const PostIcons = styled.View`
+  display:flex;
+  flex-direction: row;
+  padding: 0px 8px 0px 8px;
+`;
+
+const Icons = styled.View`
+  padding: 0px 8px 0px 8px;
+`;
+
+const RightView = styled.View`
+  flex:1;
+  alignItems: flex-end;
+  justifyContent:flex-end;
+  padding: 0px 8px 0px 8px;
+`;
+const PostText = styled.View`
+width: auto;
+display:flex;
+flex-direction: row;
+`;
 export default App;
