@@ -1,10 +1,12 @@
 import React, {useState} from "react";
-import { Button } from "react-native";
+import { Button, Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { css } from "styled-components";
 import {Image} from 'react-native' ;
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import AutoHeightImage from "react-native-auto-height-image"
+
+const win = Dimensions.get("window");
 
 const User = (props) => {
   return (
@@ -16,19 +18,23 @@ const User = (props) => {
 };
 
 const Post = (props) => {
-  const [favd, setFavd] = useState(false);
-  const onPressButton = () => {
-    setFavd(!favd);
+  const [fav, setFav] = useState(false);
+  const [bkmk, setBkmk] = useState(false);
+  const onPressFav = () => {
+    setFav(!fav);
   };
+  const onPressBkmk =() => {
+    setBkmk(!bkmk);
+  }
   return (
     <PostContainer>
-      <PostImage style={{width: '100%'}} resizeMode='contain' source={require('../img/card.jpg')} />
+      <AutoHeightImage width={win.width} source={require('../img/card.jpg')} />
       <PostIcons>
-        <FontAwesome.Button onPress={onPressButton} name={favd ? "heart" : "heart-o"} size={25} style={{backgroundColor:'#FFFFFF'}} color={favd ? "#FF0000" : "#000000"} iconStyle={{ marginRight: 0}}/>
+        <FontAwesome.Button onPress={onPressFav} name={fav ? "heart" : "heart-o"} size={25} style={{backgroundColor:'#FFFFFF'}} color={fav ? "#FF0000" : "#000000"} iconStyle={{ marginRight: 0}}/>
         <FontAwesome.Button name="comment-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         <FontAwesome.Button name="paper-plane-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         <RightView>
-          <FontAwesome.Button name="bookmark-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
+          <FontAwesome.Button onPress={onPressBkmk} name={bkmk ? "bookmark" : "bookmark-o"} size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         </RightView>
       </PostIcons>
       <PostText>
@@ -78,12 +84,13 @@ const PostContainer = styled.View`
   ${center};
 `;
 
-
 const UserContainer = styled.View`
 width: auto;
-height: 30px;
+height: 40px;
 display:flex;
 flex-direction: row;
+borderBottomWidth: 0.2px;
+borderBottomColor: #C0C0C0;
 `;
 
 const UserImage = styled.Image`
@@ -105,8 +112,6 @@ const PostComment = styled.Text`
   font-weight: bold;
 `;
 
-const PostImage = styled.Image`
-`;
 
 const PostIcons = styled.View`
   display:flex;
