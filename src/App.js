@@ -106,10 +106,10 @@ const UserText = styled.Text`
 const PostUser = styled.Text`
   padding: 0px 0px 0px 5px;
   color: black;
+  font-weight: bold;
 `;
 const PostComment = styled.Text`
   color: black;
-  font-weight: bold;
 `;
 
 
