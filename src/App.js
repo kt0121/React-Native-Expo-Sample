@@ -20,17 +20,11 @@ const Post = (props) => {
     <PostContainer>
       <PostImage style={{width: '100%'}} resizeMode='contain' source={require('../img/card.jpg')} />
       <PostIcons>
-        <Icons>
-          <FontAwesome name="heart-o" size={25}/>
-        </Icons>
-        <Icons>
-          <FontAwesome name="comment-o" size={25}/>
-        </Icons>
-        <Icons>
-         <FontAwesome name="paper-plane-o" size={25}/>
-        </Icons>
+        <FontAwesome.Button name="heart-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
+        <FontAwesome.Button name="comment-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
+        <FontAwesome.Button name="paper-plane-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         <RightView>
-          <FontAwesome name="bookmark-o" size={25}/>
+          <FontAwesome.Button name="bookmark-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         </RightView>
       </PostIcons>
       <PostText>
@@ -55,7 +49,7 @@ const App = () => {
   return (
     <CenterView>
       {usernames.map((username) => (
-        <Card username={username} comment="Hello"/>
+        <Card username={username} comment=" Hello"/>
       ))}
     </CenterView>
   );
@@ -116,15 +110,11 @@ const PostIcons = styled.View`
   padding: 0px 8px 0px 8px;
 `;
 
-const Icons = styled.View`
-  padding: 0px 8px 0px 8px;
-`;
 
 const RightView = styled.View`
   flex:1;
   alignItems: flex-end;
   justifyContent:flex-end;
-  padding: 0px 8px 0px 8px;
 `;
 const PostText = styled.View`
 width: auto;
