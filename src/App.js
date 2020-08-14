@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button } from "react-native";
 import styled from "styled-components/native";
 import { css } from "styled-components";
@@ -16,11 +16,15 @@ const User = (props) => {
 };
 
 const Post = (props) => {
+  const [favd, setFavd] = useState(false);
+  const onPressButton = () => {
+    setFavd(!favd);
+  };
   return (
     <PostContainer>
       <PostImage style={{width: '100%'}} resizeMode='contain' source={require('../img/card.jpg')} />
       <PostIcons>
-        <FontAwesome.Button name="heart-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
+        <FontAwesome.Button onPress={onPressButton} name={favd ? "heart" : "heart-o"} size={25} style={{backgroundColor:'#FFFFFF'}} color={favd ? "#FF0000" : "#000000"} iconStyle={{ marginRight: 0}}/>
         <FontAwesome.Button name="comment-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         <FontAwesome.Button name="paper-plane-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
         <RightView>
