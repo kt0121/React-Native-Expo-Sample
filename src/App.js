@@ -4,130 +4,180 @@ import styled from "styled-components/native";
 import { css } from "styled-components";
 import {Image} from 'react-native' ;
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AutoHeightImage from "react-native-auto-height-image"
+import { isRequired } from "react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType";
+//import AutoHeightImage from "react-native-auto-height-image"
+const win = Dimensions.get('window')
+const Title = () => {
+  const onPressBack = () => {
+    console.log('back')
+  };
 
-const win = Dimensions.get("window");
-
-const User = (props) => {
+  const onPressSearch = () => {
+    console.log('search')
+  };
   return (
-    <UserContainer>
-      <UserImage resizeMode='contain' source={require('../img/Profile.jpg')} />
-      <UserText>{props.username}</UserText>
-    </UserContainer>
+    <TitleContainer>
+      <FontAwesome.Button onPress={onPressBack} name="chevron-left" size={25} color="#FFFFFF" iconStyle={{ marginRight: 0}} style={{backgroundColor: "#242B45"}}/>
+      <CenterView>
+        <TitleText style={{textalign: center}}>Shopping Cart</TitleText>
+      </CenterView>
+      <RightView>
+        <FontAwesome.Button onPress={onPressSearch} name="search" size={25} color="#FFFFFF" style={{backgroundColor: "#242B45"}} iconStyle={{ marginRight: 0}}/>
+      </RightView>
+    </TitleContainer>
   )
 };
 
-const Post = (props) => {
-  const [fav, setFav] = useState(false);
-  const [bkmk, setBkmk] = useState(false);
-  const onPressFav = () => {
-    setFav(!fav);
-  };
-  const onPressBkmk =() => {
-    setBkmk(!bkmk);
-  }
+const Content = (props) => {
   return (
-    <PostContainer>
-      <AutoHeightImage width={win.width} source={require('../img/card.jpg')} />
-      <PostIcons>
-        <FontAwesome.Button onPress={onPressFav} name={fav ? "heart" : "heart-o"} size={25} style={{backgroundColor:'#FFFFFF'}} color={fav ? "#FF0000" : "#000000"} iconStyle={{ marginRight: 0}}/>
-        <FontAwesome.Button name="comment-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
-        <FontAwesome.Button name="paper-plane-o" size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
-        <RightView>
-          <FontAwesome.Button onPress={onPressBkmk} name={bkmk ? "bookmark" : "bookmark-o"} size={25} style={{backgroundColor:'#FFFFFF'}} iconStyle={{ marginRight: 0, color: '#000000'}}/>
-        </RightView>
-      </PostIcons>
-      <PostText>
-        <PostUser>{props.username}</PostUser>
-        <PostComment>{props.comment}</PostComment>
-      </PostText>
-    </PostContainer>
+    <ContentContainer>
+      <ProductImg source={require('../img/Profile.jpg')} style={{ width: 120, height: 150 }}/>
+      <ProductInfo>
+        <ProductName>{props.name}</ProductName>
+        <ProductCategory>{props.category}</ProductCategory>
+        <ProductCost>{props.cost}</ProductCost>
+        <ProductCounter>
+          <FontAwesome.Button onPress={count>=2 && onPressDecrease} name="minus-circle" size={25} color={count==1 ?  "#3E455F":"#3565FD"} iconStyle={{ marginRight: 0}}  style={{backgroundColor: "#242B45"}}/>
+          <ProductCount>{count}</ProductCount>
+          <FontAwesome.Button onPress={onPressIncrease} name="plus-circle" size={25} color="#3565FD" iconStyle={{ marginRight: 0}}  style={{backgroundColor: "#242B45"}}/>
+        </ProductCounter>
+      </ProductInfo>
+    </ContentContainer>
   )
 }
 
-const Card = (props) => {
+const Sumarry = () => {
+
+}
+const Main = () => {
+  const [products, setProducts] = useState([
+    {cost: 130, count: 1},
+    {cost: 80, count: 1}
+  ]);
+  const onPressIncrease = (index) => {
+    const newvalue = [...products]
+    newvalue[index].count += 1
+    setProducts(newvalue)
+  }
+
+  const onPressDecrease =(index) => {
+    const newvalue = [...products]
+    newvalue[index].count -= 1
+    setProducts(newvalue)
+  }
+
+  const TotalCost = () => {
+    
+  }
   return (
-    <CardContainer>
-      <User username={props.username}/>
-      <Post username={props.username} comment={props.comment}/>
-    </CardContainer>
+    <Maincontainer>
+      <CenterView>
+        {Infos.map((Info) => (
+          <Content name={Info[0]} category={Info[1]} cost={Info[2]}/>
+        ))}
+      </CenterView>
+    </Maincontainer>
   );
 };
 
-const App = () => {
-  const usernames = ["Ahn", "Heeyon", "Hani"];
+const Checkout = () => {
+  const onPressCheckout = () => {
+
+  }
   return (
     <CenterView>
-      {usernames.map((username) => (
-        <Card username={username} comment=" Hello"/>
-      ))}
+      <Button onPress={onPressCheckout} title="Checkout" />
     </CenterView>
+  )
+}
+
+const App = () => {
+  return (
+    <AppContainer>
+      <Title/>
+      <Main/>
+      <Checkout/>
+    </AppContainer>
   );
 };
 
 // styled component
 const center = css`
 `;
-const CenterView = styled.ScrollView`
-  background-color: #282c34;
+const CenterView = styled.View`
+  flex:1;
+  alignItems: center;
+  justifyContent:center;
 `;
-const CardContainer = styled.View`
+
+const TitleContainer = styled.View`
   width: auto;
-  height: auto;
-  background-color: #FFFFFF;
-  padding-bottom: 10px;
+  height: 100px;
+  background-color: #242B45;
   ${center};
-`;
-const PostContainer = styled.View`
-  width: auto;
-  height: auto;
-  ${center};
-`;
-
-const UserContainer = styled.View`
-width: auto;
-height: 40px;
-display:flex;
-flex-direction: row;
-borderBottomWidth: 0.2px;
-borderBottomColor: #C0C0C0;
-`;
-
-const UserImage = styled.Image`
-border-radius: 1000px;
-margin-left:10px;
-width:  30px;
-height: 30px;
-`;
-const UserText = styled.Text`
-  padding: 5px 0px 0px 5px;
-  color: black;
-`;
-const PostUser = styled.Text`
-  padding: 0px 0px 0px 5px;
-  color: black;
-`;
-const PostComment = styled.Text`
-  color: black;
-  font-weight: bold;
-`;
-
-
-const PostIcons = styled.View`
+  padding: 7px 0px 0px 7px;
   display:flex;
   flex-direction: row;
-  padding: 0px 8px 0px 8px;
 `;
 
+const TitleText = styled.Text`
+  padding: 7px 0px 0px 7px;
+  color: #FFFFFF;
+  font-size: 25px;
+`;
+
+const ContentContainer = styled.View`
+width: 100%;
+height: 150px;
+display:flex;
+flex-direction: row;
+background-color: #242B45;
+margin-bottom: 1px;
+`;
+
+const ProductImg = styled.Image`
+`;
+
+const ProductInfo = styled.View`
+width: auto;
+display:flex;
+flex-direction: column;
+`;
+
+const ProductName = styled.Text`
+font-size: 15px;
+  color: #FFFFFF;
+`;
+const ProductCategory = styled.Text`
+  color: #3E455F;
+  font-size: 10px;
+`;
+const ProductCost = styled.Text`
+  color: #FFFFFF;
+  font-size: 10px;
+`;
+const ProductCounter = styled.View`
+  width: auto;
+  display:flex;
+  flex-direction: row;
+`;
+const ProductCount = styled.Text`
+  color: #FFFFFF;
+  font-size: 10px;
+`;
+const Maincontainer = styled.ScrollView`
+  background-color: #192139;
+  width: 100%
+`;
 
 const RightView = styled.View`
   flex:1;
   alignItems: flex-end;
   justifyContent:flex-end;
 `;
-const PostText = styled.View`
-width: auto;
-display:flex;
-flex-direction: row;
+
+const AppContainer = styled.View`
+  width: 100%;
+  height: 100%;
 `;
 export default App;
